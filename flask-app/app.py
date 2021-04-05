@@ -26,7 +26,7 @@ MAX_LEN = 36
 
 
 
-UPLOAD_FOLDER = './static/uploads'
+UPLOAD_FOLDER = './flask-app/static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
@@ -127,10 +127,10 @@ if __name__  == "__main__" :
     sess.init_app(app)
     app.debug = True
     app.config["SECRET_KEY"] = 'TPmi4aLWRbyVq8zu9v82dWYW1'
-    MODEL_PATH = './models/model.h5'
-    MODEL_WEIGHTS_PATH = './models/model_weights.h5'
-    NEW_DICT_PATH = './npy-files/new_dict.npy'
-    INV_DICT_PATH = './npy-files/inv_dict.npy'
+    MODEL_PATH = './flask-app/models/model.h5'
+    MODEL_WEIGHTS_PATH = './flask-app/models/model_weights.h5'
+    NEW_DICT_PATH = './flask-app/npy-files/new_dict.npy'
+    INV_DICT_PATH = './flask-app/npy-files/inv_dict.npy'
     load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
     load_dictionary(NEW_DICT_PATH, INV_DICT_PATH)
     app.run(host='0.0.0.0', port=5000)
