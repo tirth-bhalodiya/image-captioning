@@ -104,7 +104,6 @@ def save_image(file):
 
 #def preprosess_image():
 
-
 app = Flask(__name__)
 sess = Session(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -122,6 +121,18 @@ def download():
     download_models()
     app.logger.info("Download Done");
     return "done"
+
+
+@app.route('/load',methods=['GET'])
+def load():
+    MODEL_PATH = os.path.join(dir , 'models', 'model.h5')
+    MODEL_WEIGHTS_PATH = os.path.join(dir , 'models', 'model_weights.h5')
+    NEW_DICT_PATH = os.path.join(dir, 'npy-files', 'new_dict.npy');
+    INV_DICT_PATH = os.path.join(dir, 'npy-files', 'inv_dict.npy');
+    my_load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
+    load_dictionary(NEW_DICT_PATH, INV_DICT_PATH)
+    return "done";
+
 @app.route('/upload',methods=['GET'])
 def upload():
     return render_template('upload.html')
@@ -153,10 +164,4 @@ if __name__  == "__main__" :
     sess.init_app(app)
     app.debug = True
     app.config["SECRET_KEY"] = 'TPmi4aLWRbyVq8zu9v82dWYW1'
-    MODEL_PATH = os.path.join(dir , 'models', 'model.h5')
-    MODEL_WEIGHTS_PATH = os.path.join(dir , 'models', 'model_weights.h5')
-    NEW_DICT_PATH = os.path.join(dir, 'npy-files', 'new_dict.npy');
-    INV_DICT_PATH = os.path.join(dir, 'npy-files', 'inv_dict.npy');
-    my_load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
-    load_dictionary(NEW_DICT_PATH, INV_DICT_PATH)
     app.run(host='0.0.0.0', port=5000)
