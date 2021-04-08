@@ -39,7 +39,7 @@ def CNN():
     return model_resnet
 
 
-def load_model(model_path, model_weights_path):
+def my_load_model(model_path, model_weights_path):
     global model
     global model_cnn 
     model_cnn = CNN()
@@ -131,6 +131,6 @@ if __name__  == "__main__" :
     MODEL_WEIGHTS_PATH = './models/model_weights.h5'
     NEW_DICT_PATH = './npy-files/new_dict.npy'
     INV_DICT_PATH = './npy-files/inv_dict.npy'
-    load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
+    my_load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
     load_dictionary(NEW_DICT_PATH, INV_DICT_PATH)
     app.run(host='0.0.0.0', port=5000)
