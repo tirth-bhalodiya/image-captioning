@@ -1,5 +1,0 @@
-flask
-tensorflow-cpu
-keras
-flask_session 
-opencv-python-headless

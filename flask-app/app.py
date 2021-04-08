@@ -16,6 +16,9 @@ from flask_session.__init__ import Session
 
 import uuid
 import datetime
+
+import subprocess
+
  
  
 SESSION_TYPE = 'memcache'
@@ -33,6 +36,17 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
 
+def download_models():
+    link = open( os.path.join(dir, 'models', 'upload.txt'))
+    app.logger.info("Downloading Model , "  )
+    subprocess.run(["curl" , link.readline().strip(''') ,  "-o ","model.h5"]);
+    
+    app.logger.info("Downloading ModelWeights " )
+    subprocess.run(["curl" , link.readline().strip(''') ,  "-o ","model_weights.h5"]);
+
+    subprocess.run(["mv","model.h5","models/model.h5"]);
+    subprocess.run(["mv","model_weights.h5","models/model_weights.h5"]);
+    
 
 def CNN():
     resnet = ResNet50(include_top=True,weights="imagenet") 
@@ -139,10 +153,11 @@ if __name__  == "__main__" :
     sess.init_app(app)
     app.debug = True
     app.config["SECRET_KEY"] = 'TPmi4aLWRbyVq8zu9v82dWYW1'
+    download_models()
     MODEL_PATH = os.path.join(dir , 'models', 'model.h5')
     MODEL_WEIGHTS_PATH = os.path.join(dir , 'models', 'model_weights.h5')
-    NEW_DICT_PATH = os.path.join(dir,'npy-files', 'new_dict.npy');
-    INV_DICT_PATH = os.path.join(dir, 'npy-files','inv_dict.npy');
+    NEW_DICT_PATH = os.path.join(dir, 'npy-files', 'new_dict.npy');
+    INV_DICT_PATH = os.path.join(dir, 'npy-files', 'inv_dict.npy');
     my_load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
     load_dictionary(NEW_DICT_PATH, INV_DICT_PATH)
     app.run(host='0.0.0.0', port=5000)
