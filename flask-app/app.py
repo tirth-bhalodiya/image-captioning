@@ -1,4 +1,4 @@
-from flask import Flask , session
+from flask import Flask , session , jsonify
 from flask import render_template,flash, json, jsonify, request,redirect,url_for
 from tensorflow import keras
 import numpy as np
@@ -10,6 +10,8 @@ import io
 from keras.preprocessing.sequence import pad_sequences
 from werkzeug.utils import secure_filename
 
+dir = os.path.dirname(__file__)
+# filename = os.path.join(dir, 'relative','path','to','file','you','want')
 from flask_session.__init__ import Session
 
 import uuid
@@ -26,7 +28,7 @@ MAX_LEN = 36
 
 
 
-UPLOAD_FOLDER = './static/uploads'
+UPLOAD_FOLDER = os.path.join(dir,'static','uploads');
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
@@ -116,21 +118,31 @@ def predict():
         file = request.files['file']
         filename = save_image(file)
         caption = predict_caption(filename)
-       
-        return render_template('predict.html', image = filename , caption = caption )
-        
-    
+        # app.logger.info(filename)html
+        return jsonify(
+              capion=caption
+        )
 
+
+
+@app.route('/predict-html',methods=['GET','POST'])
+def predict_html():
+    if request.method == 'POST':
+        file = request.files['file']
+        filename = save_image(file)
+        caption = predict_caption(filename)
+        # app.logger.info(filename)
+        return render_template('predict.html', image = filename , caption = caption )
 
 
 if __name__  == "__main__" :
     sess.init_app(app)
     app.debug = True
     app.config["SECRET_KEY"] = 'TPmi4aLWRbyVq8zu9v82dWYW1'
-    MODEL_PATH = './models/model.h5'
-    MODEL_WEIGHTS_PATH = './models/model_weights.h5'
-    NEW_DICT_PATH = './npy-files/new_dict.npy'
-    INV_DICT_PATH = './npy-files/inv_dict.npy'
+    MODEL_PATH = os.path.join(dir , 'models', 'model.h5')
+    MODEL_WEIGHTS_PATH = os.path.join(dir , 'models', 'model_weights.h5')
+    NEW_DICT_PATH = os.path.join(dir,'npy-files', 'new_dict.npy');
+    INV_DICT_PATH = os.path.join(dir, 'npy-files','inv_dict.npy');
     my_load_model(MODEL_PATH, MODEL_WEIGHTS_PATH)
     load_dictionary(NEW_DICT_PATH, INV_DICT_PATH)
     app.run(host='0.0.0.0', port=5000)
