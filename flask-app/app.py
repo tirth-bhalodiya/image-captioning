@@ -40,6 +40,9 @@ def download_models():
     os.system("chmod a+x models/download.sh")
     os.system("sh models/download.sh")
 
+def download_dict():
+    os.system("chmod a+x npy-files/download.sh")
+    os.system("sh npy-files/download.sh")
 
 def CNN():
     resnet = ResNet50(include_top=True,weights="imagenet") 
@@ -114,11 +117,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def welcome():
     return "Hello Welcome to Image Captioning Api"
 
-@app.route('/download-model',methods=['GET'])
+@app.route('/download',methods=['GET'])
 def download():
-
     app.logger.info("Downloading Dataset Wait");
     download_models()
+    app.logger.info("Download Done");
+    app.logger.info("Downloading Dataset Wait");
+    download_dict()
     app.logger.info("Download Done");
     return "done"
 
