@@ -6,8 +6,8 @@ INV=''
 
 cd npy-files
 
-raw="$(curl $NEW -o new_dict.h5)"
-raw1="$(curl $INV -o inv_dict.h5)"
+raw="$(curl $NEW -o new_dict.npy)"
+raw1="$(curl $INV -o inv_dict.npy)"
 
 $raw
 $raw1
