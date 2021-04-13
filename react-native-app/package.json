@@ -10,9 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
+    "native-base": "^2.15.2",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-camera": "^3.43.1",
@@ -22,6 +24,7 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
     "react-native-splash-screen": "^3.2.0",
+    "react-native-sqlite-storage": "^5.0.0",
     "react-native-tts": "^4.1.0",
     "react-navigation-stack": "^2.10.4"
   },
