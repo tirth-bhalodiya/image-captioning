@@ -24,8 +24,11 @@ const Result = ({navigation, route}) => {
   const storeData = async obj => {
     const data = (await getData()) || [];
     try {
-      data.push(obj);
-      const jsonValue = JSON.stringify(data);
+      let pp = null;
+      if (data.length != 0) {
+        pp = [obj].concat(data);
+      } else pp = [obj];
+      const jsonValue = JSON.stringify(pp);
       await AsyncStorage.setItem('history_arr', jsonValue);
     } catch (e) {
       console.log(e);

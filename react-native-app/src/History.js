@@ -9,6 +9,7 @@ import {
   Header,
   Icon,
   Left,
+  Right,
   Text,
   Title,
 } from 'native-base';
@@ -18,9 +19,9 @@ import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 const History = ({navigation}) => {
   const [isAvalible, setIsAvalible] = useState(false);
   const [history, setHistory] = useState(null);
-  const cardBodyGen = (image, caption) => {
+  const cardBodyGen = (image, caption, key) => {
     return (
-      <Card>
+      <Card key={key} style={{padding: 10, marginBottom: 10}}>
         <CardItem cardBody>
           <Image
             source={{
@@ -51,6 +52,12 @@ const History = ({navigation}) => {
       // error reading value
     }
   };
+
+  const clearHistory = () => {
+    AsyncStorage.removeItem('history_arr');
+    console.log('History Cleared');
+    setHistory(null);
+  };
   useEffect(() => {
     getData();
   }, [isAvalible]);
@@ -67,11 +74,22 @@ const History = ({navigation}) => {
           <Body>
             <Title>History </Title>
           </Body>
+          <Right>
+            <Button onPress={() => clearHistory()}>
+              <Text> Clear History </Text>
+            </Button>
+          </Right>
         </Header>
         <Content>
-          {history.map(item => {
-            return cardBodyGen(item.image, item.capion);
-          })}
+          {history === null ? (
+            <Container>
+              <Text> No data found </Text>
+            </Container>
+          ) : (
+            history.map((item, i) => {
+              return cardBodyGen(item.image, item.capion, i);
+            })
+          )}
         </Content>
       </Container>
     );

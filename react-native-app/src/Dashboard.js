@@ -10,6 +10,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 const Dashboard = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const uploadAndPredict = (image, navigation) => {
+    console.log('image', image);
     const URL = `http://describer.ddns.net/predict`;
 
     const data = new FormData();
