@@ -13,29 +13,31 @@ And configured DNS for it using [No-IP](https://www.noip.com/)**
 **Accessible via**
 [http://describer.ddns.net/](http://describer.ddns.net/) 
 
-## Run Locally 
+# Run Locally 
 
-### Clone the repository
+## Clone the repository
  ``` git clone https://github.com/kiranbhanushali/image-captioning.git```
 
-### Installing Requirements
+## Installing Requirements
 requirements are specified in requiremnt.txt file .install the requirements for app via 
 ```pip install -r requirements.txt```
 >Note: for cpu only devices can install tensorflow-cpu.
 
-### Run app 
-``` cd flask-app ```
+## Run app 
+go to flask-app via command ``` cd flask-app ```
+
 we are using gunicorn to run our flask application 
 ``` gunicorn app:app```
+
 The app will start on [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-### Testing 
+## Testing 
 for testing you can use [Postman ](https://www.postman.com/)
 or simply ```curl``` in terminal 
 
 
 
-## REST API Endpoints
+# REST API Endpoints
 
 
 | ROUTE | METHOD | DESCRIPTION |
