@@ -1,1 +1,3 @@
 flask-app/models/*.h5
+*.npy
+*.log
