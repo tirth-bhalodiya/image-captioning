@@ -57,7 +57,7 @@ const Result = ({navigation, route}) => {
       </Header>
       <Content style={{padding: 10}}>
         <Image
-          style={{alignItems: 'center', height: 400, width: 400}}
+          style={{resizeMode: 'contain', height: 400, width: 400}}
           source={{
             uri: imagepath,
           }}
