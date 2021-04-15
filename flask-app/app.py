@@ -9,6 +9,7 @@ import os
 import io
 from keras.preprocessing.sequence import pad_sequences
 from werkzeug.utils import secure_filename
+import logging 
 
 dir = os.path.dirname(__file__)
 # filename = os.path.join(dir, 'relative','path','to','file','you','want')
@@ -20,6 +21,7 @@ import datetime
 import subprocess
 
  
+logging.basicConfig(filename='{}/bapp.log'.format(os.path.join(dir)), level=logging.INFO)
  
 SESSION_TYPE = 'memcache'
 
@@ -27,7 +29,7 @@ model = None
 model_cnn = None
 new_dict = None
 inv_dict = None
-MAX_LEN = 36
+MAX_LEN = 20
 
 
 
@@ -37,8 +39,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
 def download_models():
-    os.system("chmod a+x models/download.sh")
-    os.system("sh models/download.sh")
+
+    cmd1 = "chmod a+x {}".format(os.path.join(dir,'models','download.sh'))
+    os.system(cmd1);
+    cmd2 = "sh {}".format(os.path.join(dir,'models','download.sh'))
+    os.system(cmd2);
 
 def download_dict():
     os.system("chmod a+x npy-files/download.sh")
@@ -85,10 +90,11 @@ def predict_caption(imgName):
         encoded = pad_sequences(encoded, padding='post', truncating='post', maxlen=MAX_LEN)
         prediction = np.argmax(model.predict([test_feature, encoded]))
         sampled_word = inv_dict[prediction]
-        caption = caption + ' ' + sampled_word
-            
+        
         if sampled_word == 'endseq':
           break
+        caption = caption + ' ' + sampled_word
+            
 
         text_inp.append(sampled_word)
     return caption;
@@ -115,6 +121,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/' , methods=['GET'])
 def welcome():
+    return "Hello Welcome to Image Captioning Api"
+
+@app.route('/hello' , methods=['GET'])
+def hello():
     return "Hello Welcome to Image Captioning Api"
 
 @app.route('/download',methods=['GET'])
@@ -169,4 +179,5 @@ if __name__  == "__main__" :
     sess.init_app(app)
     app.debug = True
     app.config["SECRET_KEY"] = 'TPmi4aLWRbyVq8zu9v82dWYW1'
-    app.run(host='0.0.0.0', port=5000)
+    app.run( host='0.0.0.0')
+    

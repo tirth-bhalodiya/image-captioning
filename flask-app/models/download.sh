@@ -1,13 +1,13 @@
 #!/bin/bash
 
 
-MODEL='https://bashupload.com/Lv9Rx/model.txt'
-WEIGHTS='https://bashupload.com/Lv9Rx/ypsIG.txt'
+MODEL='https://bashupload.com/nu1vn/CRKuG.h5'
+WEIGHTS='https://bashupload.com/kRe3t/BFGRr.h5'
 
-cd models
+cd /var/www/flask-app/models
 
-raw="$(curl $MODEL -o model.h5)"
-raw1="$(curl $WEIGHTS -o model_weights.h5)"
+raw="$(sudo curl $MODEL -o model.h5)"
+raw1="$(sudo curl $WEIGHTS -o model_weights.h5)"
 
 $raw
 $raw1
