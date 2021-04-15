@@ -19,7 +19,7 @@ And configured DNS for it using [No-IP](https://www.noip.com/)**
  ``` git clone https://github.com/kiranbhanushali/image-captioning.git```
 
 ## Installing Requirements
-requirements are specified in requiremnt.txt file .install the requirements for app via 
+requirements are specified in requirements.txt file .install the requirements for app via 
 ```pip install -r requirements.txt```
 >Note: for cpu only devices can install tensorflow-cpu.
 
